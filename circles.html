@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Circles</title>
+	<link rel="stylesheet" type="text/css" href="circles.css">
+	<script type="text/javascript" src="paper-full.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.4/howler.js"></script>
+	<script type="text/paperscript" canvas="myCanvas">
+
+		var keyData = {
+		a:{color:"#FF86AB",sound: new Howl({src:['A/a.mp3']})},
+		b:{color:"#FF86AB",sound: new Howl({src:['A/b.mp3']})},
+		c:{color:"##FF456C",sound: new Howl({src:['A/c.mp3']})},
+		d:{color:"#FF86AB",sound: new Howl({src:['A/d.mp3']})},
+		e:{color:"##FF456C",sound: new Howl({src:['A/e.mp3']})},
+		f:{color:"#FF86AB",sound: new Howl({src:['A/f.mp3']})},
+		g:{color:"#FF86AB",sound: new Howl({src:['A/g.mp3']})},
+		h:{color:"##FF456C",sound: new Howl({src:['A/h.mp3']})},
+		i:{color:"#FF86AB",sound: new Howl({src:['A/i.mp3']})},
+		j:{color:"#FF86AB",sound: new Howl({src:['A/j.mp3']})},
+		k:{color:"#FF86AB",sound: new Howl({src:['A/k.mp3']})},
+		l:{color:"#574DFF",sound: new Howl({src:['A/l.mp3']})},
+		m:{color:"##FF456C",sound: new Howl({src:['A/m.mp3']})},
+		n:{color:"#574DFF",sound: new Howl({src:['A/n.mp3']})},
+		o:{color:"#574DFF",sound: new Howl({src:['A/o.mp3']})},
+		p:{color:"#574DFF",sound: new Howl({src:['A/p.mp3']})},
+		q:{color:"#574DFF",sound: new Howl({src:['A/q.mp3']})},
+		r:{color:"##FF456C",sound: new Howl({src:['A/r.mp3']})},
+		s:{color:"#FF4441",sound: new Howl({src:['A/s.mp3']})},
+		t:{color:"##FF456C",sound: new Howl({src:['A/t.mp3']})},
+		u:{color:"#FF4441",sound: new Howl({src:['A/u.mp3']})},
+		v:{color:"#FF4441",sound: new Howl({src:['A/v.mp3']})},
+		w:{color:"##FF456C",sound: new Howl({src:['A/w.mp3']})},
+		x:{color:"#FF4441",sound: new Howl({src:['A/x.mp3']})},
+		y:{color:"#FF4441",sound: new Howl({src:['A/y.mp3']})},
+		z:{color:"#FF4441",sound: new Howl({src:['A/z.mp3']})}
+		}
+
+		var sounds = new Howl({src:['A/d.mp3']});
+
+		var circles = [];
+
+
+		function onKeyDown(event){
+	if(keyData[event.key]){
+	var maxPoint = new Point(view.size.width, view.size.height);	
+	var randomPoint = Point.random();
+	var point = maxPoint * randomPoint;
+	var newCircle = new Path.Circle(point, 100);
+	newCircle.fillColor = keyData[event.key].color;
+	keyData[event.key].sound.play();
+	circles.push(newCircle);
+
+}
+else{
+	var maxPoint = new Point(view.size.width, view.size.height);	
+	var randomPoint = Point.random();
+	var point = maxPoint * randomPoint;
+	var newCircle = new Path.Circle(point, 500);
+	newCircle.fillColor = "white";
+	sounds.play();
+	circles.push(newCircle);
+
+}	}
+	
+	function onFrame(event){
+	  for(var i = 0; i < circles.length; i++){
+	  	circles[i].scale(0.99);
+	  	circles[i].fillColor.hue += 1;
+	  	
+	  	if(circles[i].area < 1){
+        	circles[i].remove();
+          circles.splice(i, 1);
+          
+        }
+	}
+	
+	}
+
+
+</script>
+</head>
+<body>
+	<canvas id="myCanvas" resize></canvas>
+</body>
+</html>
